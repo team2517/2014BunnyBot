@@ -1,8 +1,8 @@
 #include "WPILib.h"
-#define FLJaguarID				32
+#define FLJaguarID				4
 #define FRJaguarID				2
-#define BLJaguarID				3
-#define BRJaguarID				4
+#define BLJaguarID				12
+#define BRJaguarID				13
 
 
 /**
@@ -23,9 +23,9 @@ class RobotDemo : public SimpleRobot  // Jaguars and such go here
 	
 public:
 	RobotDemo():
-		stick(1), frontLeft(FLJaguarID), frontRight(FRJaguarID), 
+		stick(1), frontLeft(FLJaguarID), frontRight(FRJaguarID), backLeft(BLJaguarID), backRight(BRJaguarID)
 	{
-		myRobot.SetExpiration(0.1);
+		Watchdog().SetExpiration(1);
 	}
 
 	/**
@@ -33,10 +33,13 @@ public:
 	 */
 	void Autonomous()
 	{
-		myRobot.SetSafetyEnabled(false);
-		myRobot.Drive(-0.5, 0.0); 	// drive forwards half speed
-		Wait(2.0); 				//    for 2 seconds
-		myRobot.Drive(0.0, 0.0); 	// stop robot
+		Watchdog().SetEnabled(true);
+		
+		while (IsAutonomous() && IsEnabled()) 
+		{
+			Watchdog().Feed();
+		}
+		
 	}
 
 	/**
