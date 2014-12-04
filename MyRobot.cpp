@@ -47,11 +47,11 @@ public:
 	 */
 	void OperatorControl()
 	{
-		myRobot.SetSafetyEnabled(true);
+		Watchdog().SetEnabled(true);
+		
 		while (IsOperatorControl())
 		{
-			myRobot.ArcadeDrive(stick); // drive with arcade style (use right stick)
-			Wait(0.005);				// wait for a motor update time
+			Watchdog().Feed();
 		}
 	}
 	
