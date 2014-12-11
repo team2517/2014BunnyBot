@@ -54,13 +54,7 @@ public:
 		{
 			Watchdog().Feed();
 			
-			throttleAxis = stick.GetRawAxis(2);
-			turningAxis = stick.GetRawAxis(3);
 			
-			frontLeft.Set(throttleAxis);
-			frontRight.Set(throttleAxis);
-			backLeft.Set(throttleAxis);
-			backRight.Set(throttleAxis);
 			
 		}
 	}
