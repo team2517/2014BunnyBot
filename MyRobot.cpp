@@ -1,8 +1,9 @@
 #include "WPILib.h"
-#define FLJaguarID				4
-#define FRJaguarID				2
-#define BLJaguarID				12
-#define BRJaguarID				13
+#include "utils.h"
+#define FLJAGUARID				4
+#define FRJAGUARID				2
+#define BLJAGUARID				12
+#define BRJAGUARID				13
 
 
 
@@ -68,6 +69,9 @@ public:
 
 	}
 };
+
+float DeadBand()
+
 
 START_ROBOT_CLASS(RobotDemo);
 
