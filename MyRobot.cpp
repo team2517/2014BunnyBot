@@ -47,10 +47,6 @@ public:
 	 */
 	void OperatorControl()
 	{
-		float throttleAxis;
-		float turningAxis;
-		float leftSpeed;
-		float rightSpeed;
 		
 		Watchdog().SetEnabled(true);
 		
