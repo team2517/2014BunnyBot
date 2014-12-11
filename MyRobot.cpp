@@ -1,12 +1,13 @@
 #include "utils.h"
 #include <WPILib.h>
 #include <math.h>
-#define FLJAGUARID				4
-#define FRJAGUARID				2
-#define BLJAGUARID				12
-#define BRJAGUARID				13
-#define DEADBANDTHERESHOLD		.05
-
+#define FLJAGUARID									4
+#define FRJAGUARID									2
+#define BLJAGUARID									12
+#define BRJAGUARID									13
+#define DEADBANDTHERESHOLD							.05
+#define COMPRESSORSWITCH							14							
+#define COMPRESSORRELAY								1
 
 float DeadBand(float value)
 {
@@ -30,14 +31,16 @@ class RobotDemo : public SimpleRobot  // Jaguars and such go here
 	CANJaguar frontRight;
 	CANJaguar backLeft;
 	CANJaguar backRight;
-
+	Compressor compressor;
 
 	
 public:
 	RobotDemo():
-		stick(1), frontLeft(FLJAGUARID), frontRight(FRJAGUARID), backLeft(BLJAGUARID), backRight(BRJAGUARID)
+		stick(1), frontLeft(FLJAGUARID), frontRight(FRJAGUARID), backLeft(BLJAGUARID), backRight(BRJAGUARID),
+		compressor(COMPRESSORSWITCH, COMPRESSORRELAY)
 	{
 		Watchdog().SetExpiration(1);
+		compressor.Start();
 	}
 
 	/**
