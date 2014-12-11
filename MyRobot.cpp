@@ -11,6 +11,9 @@
  * Autonomous and OperatorControl methods at the right time as controlled by the switches on
  * the driver station or the field controls.
  */ 
+
+
+
 class RobotDemo : public SimpleRobot  // Jaguars and such go here
 {
 	Joystick stick; // only joystick
@@ -19,6 +22,7 @@ class RobotDemo : public SimpleRobot  // Jaguars and such go here
 	CANJaguar frontRight;
 	CANJaguar backLeft;
 	CANJaguar backRight;
+
 
 	
 public:
@@ -54,7 +58,12 @@ public:
 		{
 			Watchdog().Feed();
 			
-			
+			frontLeft.Set(stick.GetRawAxis(2));
+			backLeft.Set(stick.GetRawAxis(2));
+
+
+			frontRight.Set(stick.GetRawAxis(4));
+			backRight.Set(stick.GetRawAxis(4));
 			
 		}
 	}
