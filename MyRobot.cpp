@@ -1,16 +1,27 @@
-#include "WPILib.h"
-#define FLJaguarID				1
-#define FRJaguarID				2
-#define BLJaguarID				3
-#define BRJaguarID				4
+#include "utils.h"
+#include <WPILib.h>
+#include <math.h>
+#define FLJAGUARID				4
+#define FRJAGUARID				2
+#define BLJAGUARID				12
+#define BRJAGUARID				13
+#define DEADBANDTHERESHOLD		.05
 
 
-/**
- * This is a demo program showing the use of the RobotBase class.
- * The SimpleRobot class is the base of a robot application that will automatically call your
- * Autonomous and OperatorControl methods at the right time as controlled by the switches on
- * the driver station or the field controls.
- */ 
+float DeadBand(float value)
+{
+	if (fabs(value) < DEADBANDTHERESHOLD)
+	{
+		return 0;
+	}
+	else
+	{
+		return value;
+	}
+}
+
+
+
 class RobotDemo : public SimpleRobot  // Jaguars and such go here
 {
 	Joystick stick; // only joystick
@@ -20,12 +31,13 @@ class RobotDemo : public SimpleRobot  // Jaguars and such go here
 	CANJaguar backLeft;
 	CANJaguar backRight;
 
+
 	
 public:
 	RobotDemo():
-		stick(1), frontLeft(FLJaguarID), frontRight(FRJaguarID), 
+		stick(1), frontLeft(FLJAGUARID), frontRight(FRJAGUARID), backLeft(BLJAGUARID), backRight(BRJAGUARID)
 	{
-		myRobot.SetExpiration(0.1);
+		Watchdog().SetExpiration(1);
 	}
 
 	/**
@@ -33,10 +45,13 @@ public:
 	 */
 	void Autonomous()
 	{
-		myRobot.SetSafetyEnabled(false);
-		myRobot.Drive(-0.5, 0.0); 	// drive forwards half speed
-		Wait(2.0); 				//    for 2 seconds
-		myRobot.Drive(0.0, 0.0); 	// stop robot
+		Watchdog().SetEnabled(true);
+		
+		while (IsAutonomous() && IsEnabled()) 
+		{
+			Watchdog().Feed();
+		}
+		
 	}
 
 	/**
@@ -44,11 +59,20 @@ public:
 	 */
 	void OperatorControl()
 	{
-		myRobot.SetSafetyEnabled(true);
+		
+		Watchdog().SetEnabled(true);
+		
 		while (IsOperatorControl())
 		{
-			myRobot.ArcadeDrive(stick); // drive with arcade style (use right stick)
-			Wait(0.005);				// wait for a motor update time
+			Watchdog().Feed();
+			
+			frontLeft.Set(DeadBand(stick.GetRawAxis(2)));
+			backLeft.Set(DeadBand(stick.GetRawAxis(2)));
+
+
+			frontRight.Set(DeadBand(stick.GetRawAxis(4)));
+			backRight.Set(DeadBand(stick.GetRawAxis(4)));
+			
 		}
 	}
 	
@@ -60,5 +84,6 @@ public:
 	}
 };
 
-START_ROBOT_CLASS(RobotDemo);
+
+
 
