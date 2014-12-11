@@ -8,6 +8,8 @@
 #define DEADBANDTHERESHOLD							.05
 #define COMPRESSORSWITCH							14							
 #define COMPRESSORRELAY								1
+#define LEFTRAMPSOLENOID							8 //Update
+#define RIGHTRAMPSOLENOID							9 //Update
 
 float DeadBand(float value)
 {
@@ -32,12 +34,14 @@ class RobotDemo : public SimpleRobot  // Jaguars and such go here
 	CANJaguar backLeft;
 	CANJaguar backRight;
 	Compressor compressor;
-
+	Solenoid leftRampSolenoid;
+	Solenoid rightRampSolenoid;
 	
 public:
 	RobotDemo():
 		stick(1), frontLeft(FLJAGUARID), frontRight(FRJAGUARID), backLeft(BLJAGUARID), backRight(BRJAGUARID),
-		compressor(COMPRESSORSWITCH, COMPRESSORRELAY)
+		compressor(COMPRESSORSWITCH, COMPRESSORRELAY), leftRampSolenoid(LEFTRAMPSOLENOID),
+		rightRampSolenoid(RIGHTRAMPSOLENOID)
 	{
 		Watchdog().SetExpiration(1);
 		compressor.Start();
