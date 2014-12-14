@@ -1,6 +1,7 @@
-#include "utils.h"
 #include <WPILib.h>
 #include <math.h>
+#include "utils.h"
+#include "controller.h"
 #define FLJAGUARID									4
 #define FRJAGUARID									2
 #define BLJAGUARID									12
@@ -87,7 +88,7 @@ public:
 			frontRight.Set(DeadBand(stick.GetRawAxis(4)));
 			backRight.Set(DeadBand(stick.GetRawAxis(4)));
 			
-			if (stick.GetRawButton(1)) // Left blocker
+			if (stick.GetRawButton(LEFTBLOCKERID)) // Left blocker
 			{
 				if (curPneuMode != 1)
 				{
@@ -95,7 +96,7 @@ public:
 					pneuModeTimer.Reset();
 				}
 			}
-			else if (stick.GetRawButton(2)) // Right blocker
+			else if (stick.GetRawButton(RIGHTBLOCKERID)) // Right blocker
 			{
 				if (curPneuMode != 2)
 				{
@@ -103,7 +104,7 @@ public:
 					pneuModeTimer.Reset();
 				}
 			}
-			else if (stick.GetRawButton(3)) // Move Ramp
+			else if (stick.GetRawButton(RAMPID)) // Move Ramp
 			{
 				if (curPneuMode != 3)
 				{
@@ -114,7 +115,7 @@ public:
 			
 			if (tarPneuMode != curPneuMode)
 			{
-				leftRampSolenoid.Set(false);
+				leftRampSolenoid.Set(false); //Disable all pneumatics
 				rightRampSolenoid.Set(false);
 				
 			}
