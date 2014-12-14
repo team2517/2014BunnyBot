@@ -36,10 +36,14 @@ class RobotDemo : public SimpleRobot  // Jaguars and such go here
 	CANJaguar backLeft;
 	CANJaguar backRight;
 	Compressor compressor;
-	Solenoid leftRamp;
-	Solenoid rightRamp;
-	Solenoid leftBlock;
-	Solenoid rightBlock;
+	Solenoid leftRampA;
+	Solenoid leftRampB;
+	Solenoid rightRampA;
+	Solenoid rightRampB;
+	Solenoid leftBlockA;
+	Solenoid leftBlockB;
+	Solenoid rightBlockA;
+	Solenoid rightBlockB;
 	Timer pneuModeTimer;
 	
 public:
@@ -48,7 +52,7 @@ public:
 		compressor(COMPRESSORSWITCH, COMPRESSORRELAY), leftRamp(LEFTRAMPSOLENOID),
 		rightRamp(RIGHTRAMPSOLENOID)
 	{
-		Watchdog().SetExpiration(1);
+		Watchdog().SetExpiration(1); 
 		compressor.Start();
 	}
 
