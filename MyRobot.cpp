@@ -139,6 +139,8 @@ public:
 				}
 			}
 			
+								// Make sure these are correct
+			
 			if (curPneuMode == 0) // Everything disabled
 			{
 				leftRampA.Set(false);
