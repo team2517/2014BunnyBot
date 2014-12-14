@@ -9,8 +9,14 @@
 #define DEADBANDTHERESHOLD							.05
 #define COMPRESSORSWITCH							14							
 #define COMPRESSORRELAY								1
-#define LEFTRAMPSOLENOID							8 //Update
-#define RIGHTRAMPSOLENOID							9 //Update
+#define LEFTRAMPSOLENOIDA							
+#define LEFTRAMPSOLENOIDB							
+#define RIGHTRAMPSOLENOIDA							
+#define RIGHTRAMPSOLENOIDB		
+#define LEFTBLOCKERSOLENOIDA						
+#define LEFTBLOCKERSOLENOIDB						
+#define RIGHTBLOCKERSOLENOIDA						
+#define RIGHTBLOCKERSOLENOIDB						
 #define PNEUMODETIMERDELAY							.25
 
 float DeadBand(float value)
@@ -49,8 +55,12 @@ class RobotDemo : public SimpleRobot  // Jaguars and such go here
 public:
 	RobotDemo():
 		stick(1), frontLeft(FLJAGUARID), frontRight(FRJAGUARID), backLeft(BLJAGUARID), backRight(BRJAGUARID),
-		compressor(COMPRESSORSWITCH, COMPRESSORRELAY), leftRamp(LEFTRAMPSOLENOID),
-		rightRamp(RIGHTRAMPSOLENOID)
+		compressor(COMPRESSORSWITCH, COMPRESSORRELAY), 
+		leftRampA(LEFTRAMPSOLENOIDA), leftRampB(LEFTRAMPSOLENOIDB),
+		rightRampA(RIGHTRAMPSOLENOIDA), rightRampB(RIGHTRAMPSOLENOIDB),
+		leftBlockA(LEFTBLOCKERSOLENOIDA), leftBlockB(LEFTBLOCKERSOLENOIDB),
+		rightBlockA(RIGHTBLOCKERSOLENOIDA), rightBlockB(RIGHTBLOCKERSOLENOIDB)
+		
 	{
 		Watchdog().SetExpiration(1); 
 		compressor.Start();
