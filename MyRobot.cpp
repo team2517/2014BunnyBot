@@ -10,6 +10,7 @@
 #define COMPRESSORRELAY								1
 #define LEFTRAMPSOLENOID							8 //Update
 #define RIGHTRAMPSOLENOID							9 //Update
+#define PNEUMODETIMER								.25
 
 float DeadBand(float value)
 {
@@ -36,6 +37,7 @@ class RobotDemo : public SimpleRobot  // Jaguars and such go here
 	Compressor compressor;
 	Solenoid leftRampSolenoid;
 	Solenoid rightRampSolenoid;
+	Timer pneuModeTimer;
 	
 public:
 	RobotDemo():
@@ -52,6 +54,11 @@ public:
 	 */
 	void Autonomous()
 	{
+		int curPneuMode = 0; // 0 = left blocker, 1 = right blocker, 2 = ramp active
+		int tarPneuMode = 0;
+		int lastPneuMode = 0;
+		pneuModeTimer.Start();
+		
 		Watchdog().SetEnabled(true);
 		
 		while (IsAutonomous() && IsEnabled()) 
@@ -79,6 +86,38 @@ public:
 
 			frontRight.Set(DeadBand(stick.GetRawAxis(4)));
 			backRight.Set(DeadBand(stick.GetRawAxis(4)));
+			
+			if (stick.GetRawButton(1)) // Left blocker
+			{
+				if (curPneuMode != 1)
+				{
+					tarPneuMode == 1;
+					pneuModeTimer.Reset();
+				}
+			}
+			else if (stick.GetRawButton(2)) // Right blocker
+			{
+				if (curPneuMode != 2)
+				{
+					tarPneuMode == 2;
+					pneuModeTimer.Reset();
+				}
+			}
+			else if (stick.GetRawButton(3)) // Move Ramp
+			{
+				if (curPneuMode != 3)
+				{
+					tarPneuMode == 3;
+					pneuModeTimer.Reset();
+				}
+			}
+			
+			if (tarPneuMode != curPneuMode)
+			{
+				leftRampSolenoid.Set(false);
+				rightRampSolenoid.Set(false);
+				
+			}
 			
 		}
 	}
