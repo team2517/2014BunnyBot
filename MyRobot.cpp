@@ -11,7 +11,7 @@
 #define COMPRESSORRELAY								1
 #define LEFTRAMPSOLENOID							8 //Update
 #define RIGHTRAMPSOLENOID							9 //Update
-#define PNEUMODETIMER								.25
+#define PNEUMODETIMERDELAY							.25
 
 float DeadBand(float value)
 {
@@ -55,9 +55,10 @@ public:
 	 */
 	void Autonomous()
 	{
-		int curPneuMode = 0; // 0 = left blocker, 1 = right blocker, 2 = ramp active
+		int curPneuMode = 0; // 0 = all disabled (in between rotations), 1 = Left block, 2 = Right block, 3 = ramp
 		int tarPneuMode = 0;
 		int lastPneuMode = 0;
+		
 		pneuModeTimer.Start();
 		
 		Watchdog().SetEnabled(true);
@@ -115,9 +116,12 @@ public:
 			
 			if (tarPneuMode != curPneuMode)
 			{
-				leftRampSolenoid.Set(false); //Disable all pneumatics
-				rightRampSolenoid.Set(false);
-				
+				curPneuMode = 0;
+
+				if (pneuModeTimer.Get() >= PNEUMODETIMERDELAY)
+				{
+					curPneuMode = tarPneuMode;
+				}
 			}
 			
 		}
