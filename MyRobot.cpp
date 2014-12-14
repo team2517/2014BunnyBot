@@ -107,13 +107,19 @@ public:
 					pneuModeTimer.Reset();
 				}
 			}
-			else if (stick.GetRawButton(RAMPID)) // Move Ramp
+			
+			if (stick.GetRawButton(RAMPID)) // Move Ramp
 			{
 				if (curPneuMode != 3)
 				{
 					tarPneuMode == 3;
 					pneuModeTimer.Reset();
 				}
+			}
+			else if (!stick.GetRawButton(RAMPID) && curPneuMode == 3)
+			{
+				tarPneuMode == lastPneuMode;
+				pneuModeTimer.Reset();
 			}
 			
 			if (tarPneuMode != curPneuMode) // Check for button press
@@ -122,6 +128,10 @@ public:
 				if (pneuModeTimer.Get() >= PNEUMODETIMERDELAY)
 				{
 					curPneuMode = tarPneuMode;
+					if (curPneuMode != 3)
+					{
+						lastPneuMode = curPneuMode;
+					}
 				}
 			}
 			
