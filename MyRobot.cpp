@@ -36,15 +36,17 @@ class RobotDemo : public SimpleRobot  // Jaguars and such go here
 	CANJaguar backLeft;
 	CANJaguar backRight;
 	Compressor compressor;
-	Solenoid leftRampSolenoid;
-	Solenoid rightRampSolenoid;
+	Solenoid leftRamp;
+	Solenoid rightRamp;
+	Solenoid leftBlock;
+	Solenoid rightBlock;
 	Timer pneuModeTimer;
 	
 public:
 	RobotDemo():
 		stick(1), frontLeft(FLJAGUARID), frontRight(FRJAGUARID), backLeft(BLJAGUARID), backRight(BRJAGUARID),
-		compressor(COMPRESSORSWITCH, COMPRESSORRELAY), leftRampSolenoid(LEFTRAMPSOLENOID),
-		rightRampSolenoid(RIGHTRAMPSOLENOID)
+		compressor(COMPRESSORSWITCH, COMPRESSORRELAY), leftRamp(LEFTRAMPSOLENOID),
+		rightRamp(RIGHTRAMPSOLENOID)
 	{
 		Watchdog().SetExpiration(1);
 		compressor.Start();
@@ -114,14 +116,21 @@ public:
 				}
 			}
 			
-			if (tarPneuMode != curPneuMode)
+			if (tarPneuMode != curPneuMode) // Check for button press
 			{
 				curPneuMode = 0;
-
 				if (pneuModeTimer.Get() >= PNEUMODETIMERDELAY)
 				{
 					curPneuMode = tarPneuMode;
 				}
+			}
+			
+			if (curPneuMode == 0)
+			{
+				leftRamp.Set(false);
+				rightRamp.Set(false);
+				leftBlock.Set(false);
+				rightBlock.Set(false);
 			}
 			
 		}
