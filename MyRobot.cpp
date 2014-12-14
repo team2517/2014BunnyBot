@@ -141,31 +141,47 @@ public:
 			
 			if (curPneuMode == 0) // Everything disabled
 			{
-				leftRamp.Set(false);
-				rightRamp.Set(false);
-				leftBlock.Set(false);
-				rightBlock.Set(false);
+				leftRampA.Set(false);
+				leftRampB.Set(true);
+				rightRampA.Set(false);
+				rightRampB.Set(true);
+				leftBlockA.Set(false);
+				leftBlockB.Set(true);
+				rightBlockA.Set(false);
+				rightBlockB.Set(true);
 			}
 			else if (curPneuMode == 1) // Left blocker
 			{
-				leftRamp.Set(false);
-				rightRamp.Set(false);
-				leftBlock.Set(true);
-				rightBlock.Set(false);
+				leftRampA.Set(false);
+				leftRampB.Set(true);
+				rightRampA.Set(false);
+				rightRampB.Set(true);
+				leftBlockA.Set(true);
+				leftBlockB.Set(false);
+				rightBlockA.Set(false);
+				rightBlockB.Set(true);
 			}
 			else if (curPneuMode == 2) // Right blocker
 			{
-				leftRamp.Set(false);
-				rightRamp.Set(false);
-				leftBlock.Set(false);
-				rightBlock.Set(true);
+				leftRampA.Set(false);
+				leftRampB.Set(true);
+				rightRampA.Set(false);
+				rightRampB.Set(true);
+				leftBlockA.Set(false);
+				leftBlockB.Set(true);
+				rightBlockA.Set(true);
+				rightBlockB.Set(false);
 			}
 			else if (curPneuMode == 2) // Ramp activated
 			{
-				leftRamp.Set(true);
-				rightRamp.Set(true);
-				leftBlock.Set(false);
-				rightBlock.Set(false);
+				leftRampA.Set(true);
+				leftRampB.Set(false);
+				rightRampA.Set(true);
+				rightRampB.Set(false);
+				leftBlockA.Set(false);
+				leftBlockB.Set(true);
+				rightBlockA.Set(false);
+				rightBlockB.Set(true);
 			}
 			
 		}
