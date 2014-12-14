@@ -71,9 +71,6 @@ public:
 	 */
 	void Autonomous()
 	{
-		int curPneuMode = 0; // 0 = all disabled (in between rotations), 1 = Left block, 2 = Right block, 3 = ramp
-		int tarPneuMode = 0;
-		int lastPneuMode = 0;
 		
 		pneuModeTimer.Start();
 		
@@ -91,6 +88,9 @@ public:
 	 */
 	void OperatorControl()
 	{
+		int curPneuMode = 0; // 0 = all disabled (in between rotations), 1 = Left block, 2 = Right block, 3 = ramp
+		int tarPneuMode = 0;
+		int lastPneuMode = 0;
 		
 		Watchdog().SetEnabled(true);
 		
@@ -109,7 +109,7 @@ public:
 			{
 				if (curPneuMode != 1)
 				{
-					tarPneuMode == 1;
+					tarPneuMode = 1;
 					pneuModeTimer.Reset();
 				}
 			}
@@ -117,7 +117,7 @@ public:
 			{
 				if (curPneuMode != 2)
 				{
-					tarPneuMode == 2;
+					tarPneuMode = 2;
 					pneuModeTimer.Reset();
 				}
 			}
@@ -126,13 +126,13 @@ public:
 			{
 				if (curPneuMode != 3)
 				{
-					tarPneuMode == 3;
+					tarPneuMode = 3;
 					pneuModeTimer.Reset();
 				}
 			}
 			else if (!stick.GetRawButton(RAMPID) && curPneuMode == 3)
 			{
-				tarPneuMode == lastPneuMode;
+				tarPneuMode = lastPneuMode;
 				pneuModeTimer.Reset();
 			}
 			
