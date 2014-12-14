@@ -125,10 +125,31 @@ public:
 				}
 			}
 			
-			if (curPneuMode == 0)
+			if (curPneuMode == 0) // Everything disabled
 			{
 				leftRamp.Set(false);
 				rightRamp.Set(false);
+				leftBlock.Set(false);
+				rightBlock.Set(false);
+			}
+			else if (curPneuMode == 1) // Left blocker
+			{
+				leftRamp.Set(false);
+				rightRamp.Set(false);
+				leftBlock.Set(true);
+				rightBlock.Set(false);
+			}
+			else if (curPneuMode == 2) // Right blocker
+			{
+				leftRamp.Set(false);
+				rightRamp.Set(false);
+				leftBlock.Set(false);
+				rightBlock.Set(true);
+			}
+			else if (curPneuMode == 2) // Ramp activated
+			{
+				leftRamp.Set(true);
+				rightRamp.Set(true);
 				leftBlock.Set(false);
 				rightBlock.Set(false);
 			}
