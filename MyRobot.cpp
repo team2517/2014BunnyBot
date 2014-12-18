@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #include <WPILib.h>
 #include <math.h>
 #include "utils.h"
@@ -31,15 +30,6 @@ float DeadBand(float value)
 		return value;
 	}
 }
-=======
-#include "WPILib.h"
-#include "utils.h"
-#define FLJAGUARID				4
-#define FRJAGUARID				2
-#define BLJAGUARID				12
-#define BRJAGUARID				13
-
->>>>>>> 3b1cac049a223c495995cb9acc39816191e1dd7f
 
 
 
@@ -51,7 +41,6 @@ class RobotDemo : public SimpleRobot  // Jaguars and such go here
 	CANJaguar frontRight;
 	CANJaguar backLeft;
 	CANJaguar backRight;
-<<<<<<< HEAD
 	Compressor compressor;
 	Solenoid leftRampA;
 	Solenoid leftRampB;
@@ -75,16 +64,6 @@ public:
 	{
 		Watchdog().SetExpiration(1); 
 		compressor.Start();
-=======
-
-
-	
-public:
-	RobotDemo():
-		stick(1), frontLeft(FLJaguarID), frontRight(FRJaguarID), backLeft(BLJaguarID), backRight(BRJaguarID)
-	{
-		Watchdog().SetExpiration(1);
->>>>>>> 3b1cac049a223c495995cb9acc39816191e1dd7f
 	}
 
 	/**
@@ -92,12 +71,9 @@ public:
 	 */
 	void Autonomous()
 	{
-<<<<<<< HEAD
 		
 		pneuModeTimer.Start();
 		
-=======
->>>>>>> 3b1cac049a223c495995cb9acc39816191e1dd7f
 		Watchdog().SetEnabled(true);
 		
 		while (IsAutonomous() && IsEnabled()) 
@@ -112,12 +88,9 @@ public:
 	 */
 	void OperatorControl()
 	{
-<<<<<<< HEAD
-		int curPneuMode = 0; // 0 = all disabled (in between rotations), 1 = Left block, 2 = Right block, 3 = ramp
-		int tarPneuMode = 0;
-		int lastPneuMode = 0;
-=======
->>>>>>> 3b1cac049a223c495995cb9acc39816191e1dd7f
+		int curPneuMode = 1; // 0 = all disabled (in between rotations), 1 = Left block, 2 = Right block, 3 = ramp
+		int tarPneuMode = 1;
+		int lastPneuMode = 1;
 		
 		Watchdog().SetEnabled(true);
 		
@@ -125,7 +98,6 @@ public:
 		{
 			Watchdog().Feed();
 			
-<<<<<<< HEAD
 			frontLeft.Set(DeadBand(stick.GetRawAxis(2)));
 			backLeft.Set(DeadBand(stick.GetRawAxis(2)));
 
@@ -223,14 +195,6 @@ public:
 				rightBlockA.Set(false);
 				rightBlockB.Set(true);
 			}
-=======
-			frontLeft.Set(stick.GetRawAxis(2));
-			backLeft.Set(stick.GetRawAxis(2));
-
-
-			frontRight.Set(stick.GetRawAxis(4));
-			backRight.Set(stick.GetRawAxis(4));
->>>>>>> 3b1cac049a223c495995cb9acc39816191e1dd7f
 			
 		}
 	}
@@ -243,13 +207,6 @@ public:
 	}
 };
 
-<<<<<<< HEAD
 
 
-=======
-float DeadBand()
-
-
-START_ROBOT_CLASS(RobotDemo);
->>>>>>> 3b1cac049a223c495995cb9acc39816191e1dd7f
 
