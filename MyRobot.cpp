@@ -1,6 +1,5 @@
 #include <WPILib.h>
 #include <math.h>
-#include <string.h>
 #include "utils.h"
 #include "controller.h"
 #define FLJAGUARID									4
