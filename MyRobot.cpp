@@ -51,7 +51,6 @@ class RobotDemo : public SimpleRobot  // Jaguars and such go here
 	Solenoid rightBlockA;
 	Solenoid rightBlockB;
 	Timer pneuModeTimer;
-	DriverStationLCD *dsLCD = DriverStationLCD::GetInstance();
 	
 public:
 	RobotDemo():
@@ -100,6 +99,7 @@ public:
 	 */
 	void OperatorControl()
 	{
+		DriverStationLCD *dsLCD = DriverStationLCD::GetInstance();
 		int curPneuMode = 1; // 0 = all disabled (in between rotations), 1 = Left block, 2 = Right block, 3 = ramp
 		int tarPneuMode = 1;
 		int lastPneuMode = 1;
@@ -126,7 +126,7 @@ public:
 			backRight.Set(DeadBand(stick.GetRawAxis(4)));
 
 			dsLCD->Printf(DriverStationLCD::kUser_Line1, 1, "Left/Right axis %f, %f",  //Print joystick values on dsLCD
-								stick.getRawAxis(2), stick.getRawAxis(4));
+								stick.GetRawAxis(2), stick.GetRawAxis(4));
 			
 			
 			if (stick.GetRawButton(LEFTBLOCKERID)) // Left blocker
@@ -230,7 +230,14 @@ public:
 	void Test() {
 
 	}
+	
+
+	
+	
 };
+
+START_ROBOT_CLASS(RobotDemo)
+;
 
 
 
