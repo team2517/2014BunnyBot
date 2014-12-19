@@ -1,5 +1,6 @@
 #include <WPILib.h>
 #include <math.h>
+#include <string.h>
 #include "utils.h"
 #include "controller.h"
 #define FLJAGUARID									4
@@ -51,6 +52,7 @@ class RobotDemo : public SimpleRobot  // Jaguars and such go here
 	Solenoid rightBlockA;
 	Solenoid rightBlockB;
 	Timer pneuModeTimer;
+	DriverStationLCD *dsLCD = DriverStationLCD::GetInstance();
 	
 public:
 	RobotDemo():
@@ -71,10 +73,21 @@ public:
 	 */
 	void Autonomous()
 	{
+//		Timer autoTimer;
 		
 		pneuModeTimer.Start();
 		
+		
 		Watchdog().SetEnabled(true);
+
+		leftRampA.Set(true);
+		leftRampB.Set(false);
+		rightRampA.Set(true);
+		rightRampB.Set(false);
+		leftBlockA.Set(false);
+		leftBlockB.Set(true);
+		rightBlockA.Set(false);
+		rightBlockB.Set(true);
 		
 		while (IsAutonomous() && IsEnabled()) 
 		{
@@ -92,6 +105,15 @@ public:
 		int tarPneuMode = 1;
 		int lastPneuMode = 1;
 		
+		leftRampA.Set(true);
+		leftRampB.Set(false);
+		rightRampA.Set(true);
+		rightRampB.Set(false);
+		leftBlockA.Set(false);
+		leftBlockB.Set(true);
+		rightBlockA.Set(false);
+		rightBlockB.Set(true);
+		
 		Watchdog().SetEnabled(true);
 		
 		while (IsOperatorControl())
@@ -100,10 +122,13 @@ public:
 			
 			frontLeft.Set(DeadBand(stick.GetRawAxis(2)));
 			backLeft.Set(DeadBand(stick.GetRawAxis(2)));
-
-
+			
 			frontRight.Set(DeadBand(stick.GetRawAxis(4)));
 			backRight.Set(DeadBand(stick.GetRawAxis(4)));
+
+			dsLCD->Printf(DriverStationLCD::kUser_Line1, 1, "Left/Right axis %f, %f",  //Print joystick values on dsLCD
+								stick.getRawAxis(2), stick.getRawAxis(4));
+			
 			
 			if (stick.GetRawButton(LEFTBLOCKERID)) // Left blocker
 			{
@@ -196,6 +221,7 @@ public:
 				rightBlockB.Set(true);
 			}
 			
+			dsLCD->UpdateLCD();
 		}
 	}
 	
